@@ -13,10 +13,11 @@ def build_prompt(question, hits):
         f"[{c['case_no']}] {c['text']}"
         for _d, c in hits
     )
-    return f"""You are a legal research assistant.
+        return f"""You are a legal research assistant.
 Answer the question using ONLY the passages below.
 Cite the case number in square brackets after each claim.
-If the passages do not answer it, say so.
+If the passages do not answer the question, say so, set confident to false,
+and return an empty list for cases.
 
 PASSAGES:
 {context}
