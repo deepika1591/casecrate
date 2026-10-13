@@ -34,7 +34,7 @@ SCHEMA = {
     "required": ["answer", "cases", "confident"],
 }
 
-DISTANCE_LIMIT = 0.63
+DISTANCE_LIMIT = 0.56
 
 REFUSAL = {
     "answer": "I could not find anything in these judgments that covers this.",
@@ -69,6 +69,10 @@ def ask(question, k=5):
     out = json.loads(reply.output_text)
     out["passages"] = [{"case_no": c["case_no"], "text": c["text"], "distance": d}
                        for d, c in hits]
+
+    if not out["cases"] or not out["confident"]:   # it read them. it says no.
+        return REFUSAL
+
     return out
 
 
